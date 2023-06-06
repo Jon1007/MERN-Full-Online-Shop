@@ -8,8 +8,7 @@ const getOrders = async() => {
 }
 
 const AdminOrdersPage = () => {
-    return <OrdersPageComponent getOrders={getOrders} />
+  return <OrdersPageComponent getOrders={getOrders} />
 };
 
 export default AdminOrdersPage;
-

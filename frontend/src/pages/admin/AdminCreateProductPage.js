@@ -5,7 +5,7 @@ import {
   uploadImagesCloudinaryApiRequest,
 } from "./utils/utils";
 import { useSelector } from "react-redux";
-import { newCategory,deleteCategory,saveAttributeToCatDoc } from "../../redux/actions/categoryActions";
+import { newCategory,deleteCategory, saveAttributeToCatDoc } from "../../redux/actions/categoryActions";
 import { useDispatch } from "react-redux";
 
 const createProductApiRequest = async (formInputs) => {
@@ -18,18 +18,17 @@ const AdminCreateProductPage = () => {
   const dispatch = useDispatch();
 
   return (
-      <CreateProductPageComponent
-          createProductApiRequest={createProductApiRequest}
-          uploadImagesApiRequest={uploadImagesApiRequest}
-          uploadImagesCloudinaryApiRequest={uploadImagesCloudinaryApiRequest}
-          categories={categories}
-          reduxDispatch={dispatch}
-          newCategory={newCategory}
-          deleteCategory={deleteCategory}
-          saveAttributeToCatDoc={saveAttributeToCatDoc}
-      />
+    <CreateProductPageComponent
+      createProductApiRequest={createProductApiRequest}
+      uploadImagesApiRequest={uploadImagesApiRequest}
+      uploadImagesCloudinaryApiRequest={uploadImagesCloudinaryApiRequest}
+      categories={categories}
+      reduxDispatch={dispatch}
+      newCategory={newCategory}
+      deleteCategory={deleteCategory}
+      saveAttributeToCatDoc={saveAttributeToCatDoc}
+    />
   );
 };
 
 export default AdminCreateProductPage;
-

@@ -3,10 +3,10 @@ import * as actionTypes from "../constants/categoryConstants";
 export const getCategoriesReducer = (state = { categories: [] }, action) => {
     switch (action.type) {
         case actionTypes.GET_CATEGORIES_REQUEST:
-            return {
-                ...state,
-                categories: action.payload,
-            }
+           return {
+               ...state,
+               categories: action.payload,
+           }
         case actionTypes.SAVE_ATTR:
             return {
                 ...state,
@@ -19,8 +19,8 @@ export const getCategoriesReducer = (state = { categories: [] }, action) => {
             }
         case actionTypes.DELETE_CATEGORY:
             return {
-                ...state,
-                categories: action.payload
+               ...state,
+               categories: action.payload,
             }
         default:
             return state;

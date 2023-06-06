@@ -4,7 +4,7 @@ const getCategories = async (req, res, next) => {
     try {
         const categories = await Category.find({}).sort({name: "asc"}).orFail()
         res.json(categories)
-    } catch (error) {
+    } catch(error) {
         next(error)
     }
 }
@@ -12,11 +12,11 @@ const getCategories = async (req, res, next) => {
 const newCategory = async (req, res, next) => {
     try {
         const {category} = req.body
-        if (!category) {
+        if(!category) {
             res.status(400).send("Category input is required")
         }
         const categoryExists = await Category.findOne({name: category})
-        if (categoryExists) {
+        if(categoryExists) {
             res.status(400).send("Category already exists")
         } else {
             const categoryCreated = await Category.create({
@@ -32,7 +32,7 @@ const newCategory = async (req, res, next) => {
 const deleteCategory = async (req, res, next) => {
     // return res.send(req.params.category)
     try {
-        if (req.params.category !== "Choose category") {
+        if(req.params.category !== "Choose category") {
             const categoryExists = await Category.findOne({
                 name: decodeURIComponent(req.params.category)
             }).orFail()
@@ -46,17 +46,17 @@ const deleteCategory = async (req, res, next) => {
 
 const saveAttr = async (req, res, next) => {
     const {key, val, categoryChoosen} = req.body
-    if (!key || !val || !categoryChoosen) {
+    if(!key || !val || !categoryChoosen) {
         return res.status(400).send("All inputs are required")
     }
     try {
         const category = categoryChoosen.split("/")[0]
         const categoryExists = await Category.findOne({name: category}).orFail()
-        if (categoryExists.attrs.length > 0) {
+        if(categoryExists.attrs.length > 0) {
             // if key exists in the database then add a value to the key
             var keyDoesNotExistsInDatabase = true
             categoryExists.attrs.map((item, idx) => {
-                if (item.key === key) {
+                if(item.key === key) {
                     keyDoesNotExistsInDatabase = false
                     var copyAttributeValues = [...categoryExists.attrs[idx].value]
                     copyAttributeValues.push(val)
@@ -65,7 +65,7 @@ const saveAttr = async (req, res, next) => {
                 }
             })
 
-            if (keyDoesNotExistsInDatabase) {
+            if(keyDoesNotExistsInDatabase) {
                 categoryExists.attrs.push({key: key, value: [val]})
             }
         } else {
@@ -75,7 +75,7 @@ const saveAttr = async (req, res, next) => {
         await categoryExists.save()
         let cat = await Category.find({}).sort({name: "asc"})
         return res.status(201).json({categoriesUpdated: cat})
-    } catch (err) {
+    } catch(err) {
         next(err)
     }
 }

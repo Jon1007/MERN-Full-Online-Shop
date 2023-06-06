@@ -21,8 +21,8 @@ const orderSchema = mongoose.Schema({
         }
     ],
     paymentMethod: {
-        type: String,
-        required: true,
+      type: String,
+      required: true,
     },
     transactionResult: {
         status: {type: String},
@@ -50,9 +50,10 @@ const orderSchema = mongoose.Schema({
 })
 
 const Order = mongoose.model("Order", orderSchema)
-Order.watch().on("change",(data) => {
+Order.watch().on("change", (data) => {
+    
     if (data.operationType === "insert") {
-        io.emit("newOrder",data.fullDocument)
+        io.emit("newOrder", data.fullDocument);
     }
 })
 module.exports = Order

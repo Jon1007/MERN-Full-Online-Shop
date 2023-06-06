@@ -35,7 +35,7 @@ const ProductListPageComponent = ({ getProducts, categories }) => {
   useEffect(() => {
     if (categoryName) {
       let categoryAllData = categories.find(
-          (item) => item.name === categoryName.replaceAll(",", "/")
+        (item) => item.name === categoryName.replaceAll(",", "/")
       );
       if (categoryAllData) {
         let mainCategory = categoryAllData.name.split("/")[0];
@@ -68,20 +68,20 @@ const ProductListPageComponent = ({ getProducts, categories }) => {
 
   useEffect(() => {
     getProducts(categoryName, pageNumParam, searchQuery, filters, sortOption)
-        .then((products) => {
-          setProducts(products.products);
-          setPaginationLinksNumber(products.paginationLinksNumber);
-          setPageNum(products.pageNum);
-          setLoading(false);
-        })
-        .catch((er) => {
-          console.log(er);
-          setError(true);
-        });
+      .then((products) => {
+        setProducts(products.products);
+        setPaginationLinksNumber(products.paginationLinksNumber);
+        setPageNum(products.pageNum);
+        setLoading(false);
+      })
+      .catch((er) => {
+        console.log(er);
+        setError(true);
+      });
   }, [categoryName, pageNumParam, searchQuery, filters, sortOption]);
 
   const handleFilters = () => {
-    navigate(location.pathname.replace(/\/[0-9]+$/, ""));
+     navigate(location.pathname.replace(/\/[0-9]+$/, "")); 
     setShowResetFiltersButton(true);
     setFilters({
       price: price,
@@ -98,79 +98,78 @@ const ProductListPageComponent = ({ getProducts, categories }) => {
   };
 
   return (
-      <Container fluid>
-        <Row>
-          <Col md={3}>
-            <ListGroup variant="flush">
-              <ListGroup.Item className="mb-3 mt-3">
-                <SortOptionsComponent setSortOption={setSortOption} />
-              </ListGroup.Item>
+    <Container fluid>
+      <Row>
+        <Col md={3}>
+          <ListGroup variant="flush">
+            <ListGroup.Item className="mb-3 mt-3">
+              <SortOptionsComponent setSortOption={setSortOption} />
+            </ListGroup.Item>
+            <ListGroup.Item>
+              FILTER: <br />
+              <PriceFilterComponent price={price} setPrice={setPrice} />
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <RatingFilterComponent
+                setRatingsFromFilter={setRatingsFromFilter}
+              />
+            </ListGroup.Item>
+            {!location.pathname.match(/\/category/) && (
               <ListGroup.Item>
-                FILTER: <br />
-                <PriceFilterComponent price={price} setPrice={setPrice} />
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <RatingFilterComponent
-                    setRatingsFromFilter={setRatingsFromFilter}
+                <CategoryFilterComponent
+                  setCategoriesFromFilter={setCategoriesFromFilter}
                 />
               </ListGroup.Item>
-              {!location.pathname.match(/\/category/) && (
-                  <ListGroup.Item>
-                    <CategoryFilterComponent
-                        setCategoriesFromFilter={setCategoriesFromFilter}
-                    />
-                  </ListGroup.Item>
-              )}
-              <ListGroup.Item>
-                <AttributesFilterComponent
-                    attrsFilter={attrsFilter}
-                    setAttrsFromFilter={setAttrsFromFilter}
-                />
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <Button variant="primary" onClick={handleFilters}>
-                  Filter
-                </Button>{" "}
-                {showResetFiltersButton && (
-                    <Button onClick={resetFilters} variant="danger">
-                      Reset filters
-                    </Button>
-                )}
-              </ListGroup.Item>
-            </ListGroup>
-          </Col>
-          <Col md={9}>
-            {loading ? (
-                <h1>Loading products ....</h1>
-            ) : error ? (
-                <h1>Error while loading products. Try again later.</h1>
-            ) : (
-                products.map((product) => (
-                    <ProductForListComponent
-                        key={product._id}
-                        images={product.images}
-                        name={product.name}
-                        description={product.description}
-                        price={product.price}
-                        rating={product.rating}
-                        reviewsNumber={product.reviewsNumber}
-                        productId={product._id}
-                    />
-                ))
             )}
-            {paginationLinksNumber > 1 ? (
-                <PaginationComponent
-                    categoryName={categoryName}
-                    searchQuery={searchQuery}
-                    paginationLinksNumber={paginationLinksNumber}
-                    pageNum={pageNum}
-                />
-            ) : null}
-          </Col>
-        </Row>
-      </Container>
+            <ListGroup.Item>
+              <AttributesFilterComponent
+                attrsFilter={attrsFilter}
+                setAttrsFromFilter={setAttrsFromFilter}
+              />
+            </ListGroup.Item>
+            <ListGroup.Item>
+              <Button variant="primary" onClick={handleFilters}>
+                Filter
+              </Button>{" "}
+              {showResetFiltersButton && (
+                <Button onClick={resetFilters} variant="danger">
+                  Reset filters
+                </Button>
+              )}
+            </ListGroup.Item>
+          </ListGroup>
+        </Col>
+        <Col md={9}>
+          {loading ? (
+            <h1>Loading products ....</h1>
+          ) : error ? (
+            <h1>Error while loading products. Try again later.</h1>
+          ) : (
+            products.map((product) => (
+              <ProductForListComponent
+                key={product._id}
+                images={product.images}
+                name={product.name}
+                description={product.description}
+                price={product.price}
+                rating={product.rating}
+                reviewsNumber={product.reviewsNumber}
+                productId={product._id}
+              />
+            ))
+          )}
+          {paginationLinksNumber > 1 ? (
+            <PaginationComponent
+              categoryName={categoryName}
+              searchQuery={searchQuery}
+              paginationLinksNumber={paginationLinksNumber}
+              pageNum={pageNum}
+            />
+          ) : null}
+        </Col>
+      </Row>
+    </Container>
   );
 };
 
 export default ProductListPageComponent;
-
