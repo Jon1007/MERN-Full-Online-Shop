@@ -58,6 +58,7 @@
 .chat-form {
   padding: 15px;
 }
+
 .chat-form input,
 .chat-form textarea,
 .chat-form button {
@@ -77,23 +78,3 @@
   max-height: 300px;
   overflow: auto;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

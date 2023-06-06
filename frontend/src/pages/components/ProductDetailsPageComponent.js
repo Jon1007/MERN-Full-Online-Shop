@@ -12,7 +12,8 @@ import { Rating } from "react-simple-star-rating";
 import AddedToCartMessageComponent from "../../components/AddedToCartMessageComponent";
 
 import ImageZoom from "js-image-zoom";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import MetaComponent from "../../components/MetaComponent";
 
 import { useParams } from "react-router-dom";
 
@@ -21,7 +22,7 @@ const ProductDetailsPageComponent = ({
   reduxDispatch,
   getProductDetails,
   userInfo,
-  writeReviewApiRequest,
+  writeReviewApiRequest
 }) => {
   const { id } = useParams();
   const [quantity, setQuantity] = useState(1);
@@ -40,11 +41,11 @@ const ProductDetailsPageComponent = ({
 
   useEffect(() => {
     if (productReviewed) {
-      setTimeout(() => {
-        messagesEndRef.current.scrollIntoView({behavior:"smooth"},200)
-      })
-    }
-  },[productReviewed] )
+        setTimeout(() => {
+             messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+        }, 200)
+    }  
+  }, [productReviewed])
 
   useEffect(() => {
     if (product.images) {
@@ -78,31 +79,27 @@ const ProductDetailsPageComponent = ({
   }, [id, productReviewed]);
 
   const sendReviewHandler = (e) => {
-    e.preventDefault();
-    const form = e.currentTarget.elements;
-    const formInputs = {
-      comment: form.comment.value,
-      rating: form.rating.value,
-    };
-    if (e.currentTarget.checkValidity() === true) {
-      writeReviewApiRequest(product._id, formInputs)
-        .then((data) => {
-          if (data === "review created") {
-            setProductReviewed("You successfuly reviewed the page!");
-          }
-        })
-        .catch((er) =>
-          setProductReviewed(
-            er.response.data.message
-              ? er.response.data.message
-              : er.response.data
-          )
-        );
-    }
-  };
+     e.preventDefault();
+     const form = e.currentTarget.elements;
+     const formInputs = {
+         comment: form.comment.value,
+         rating: form.rating.value,
+     }
+     if (e.currentTarget.checkValidity() === true) {
+         writeReviewApiRequest(product._id, formInputs)
+         .then(data => {
+             if (data === "review created") {
+                 setProductReviewed("You successfuly reviewed the page!");
+             }
+         })
+         .catch((er) => setProductReviewed(er.response.data.message ? er.response.data.message : er.response.data));
+     }
+  }
 
   return (
-    <Container>
+      <>
+      <MetaComponent title={product.name} description={product.description}/>
+      <Container>
       <AddedToCartMessageComponent
         showCartMessage={showCartMessage}
         setShowCartMessage={setShowCartMessage}
@@ -190,45 +187,28 @@ const ProductDetailsPageComponent = ({
                       product.reviews.map((review, idx) => (
                         <ListGroup.Item key={idx}>
                           {review.user.name} <br />
-                          <Rating
-                            readonly
-                            size={20}
-                            initialValue={review.rating}
-                          />
+                          <Rating readonly size={20} initialValue={review.rating} />
                           <br />
                           {review.createdAt.substring(0, 10)} <br />
                           {review.comment}
                         </ListGroup.Item>
                       ))}
-                    <div ref={messagesEndRef} />
+                      <div ref={messagesEndRef} />
                   </ListGroup>
                 </Col>
               </Row>
               <hr />
-              {!userInfo.name && (
-                <Alert variant="danger">Login first to write a review</Alert>
-              )}
-
+              {!userInfo.name && <Alert variant="danger">Login first to write a review</Alert>}
+              
               <Form onSubmit={sendReviewHandler}>
                 <Form.Group
                   className="mb-3"
                   controlId="exampleForm.ControlInput1"
                 >
                   <Form.Label>Write a review</Form.Label>
-                  <Form.Control
-                    name="comment"
-                    required
-                    as="textarea"
-                    disabled={!userInfo.name}
-                    rows={3}
-                  />
+                  <Form.Control name="comment" required as="textarea" disabled={!userInfo.name} rows={3} />
                 </Form.Group>
-                <Form.Select
-                  name="rating"
-                  required
-                  disabled={!userInfo.name}
-                  aria-label="Default select example"
-                >
+                <Form.Select name="rating" required disabled={!userInfo.name} aria-label="Default select example">
                   <option value="">Your rating</option>
                   <option value="5">5 (very good)</option>
                   <option value="4">4 (good)</option>
@@ -236,14 +216,9 @@ const ProductDetailsPageComponent = ({
                   <option value="2">2 (bad)</option>
                   <option value="1">1 (awful)</option>
                 </Form.Select>
-                <Button
-                  disabled={!userInfo.name}
-                  type="submit"
-                  className="mb-3 mt-3"
-                  variant="primary"
-                >
+                <Button disabled={!userInfo.name} type="submit" className="mb-3 mt-3" variant="primary">
                   Submit
-                </Button>
+                </Button>{" "}
                 {productReviewed}
               </Form>
             </Col>
@@ -251,6 +226,8 @@ const ProductDetailsPageComponent = ({
         )}
       </Row>
     </Container>
+      </>
+    
   );
 };
 

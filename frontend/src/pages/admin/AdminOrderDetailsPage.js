@@ -15,8 +15,7 @@ const markAsDelivered = async (id) => {
 }
 
 const AdminOrderDetailsPage = () => {
-    return <OrderDetailsPageComponent getOrder={getOrder} markAsDelivered={markAsDelivered} />
+  return <OrderDetailsPageComponent getOrder={getOrder} markAsDelivered={markAsDelivered} />
 };
 
 export default AdminOrderDetailsPage;
-
