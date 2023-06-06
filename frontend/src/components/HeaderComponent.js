@@ -1,24 +1,24 @@
 import {
-  Navbar,
-  Nav,
-  Container,
-  NavDropdown,
-  Badge,
-  Form,
-  DropdownButton,
-  Dropdown,
-  Button,
-  InputGroup,
+    Badge,
+    Button,
+    Container,
+    Dropdown,
+    DropdownButton,
+    Form,
+    InputGroup,
+    Nav,
+    Navbar,
+    NavDropdown,
 } from "react-bootstrap";
 
-import { LinkContainer } from "react-router-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
-import { logout } from "../redux/actions/userActions";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useState } from "react";
-import { getCategories } from "../redux/actions/categoryActions";
+import {LinkContainer} from "react-router-bootstrap";
+import {Link, useNavigate} from "react-router-dom";
+import {logout} from "../redux/actions/userActions";
+import {useDispatch, useSelector} from "react-redux";
+import {useEffect, useState} from "react";
+import {getCategories} from "../redux/actions/categoryActions";
 import socketIOClient from "socket.io-client";
-import { setChatRooms, setSocket, setMessageReceived, removeChatRoom } from "../redux/actions/chatActions";
+import {removeChatRoom, setChatRooms, setMessageReceived, setSocket} from "../redux/actions/chatActions";
 
 const HeaderComponent = () => {
   const dispatch = useDispatch();
@@ -59,10 +59,8 @@ const HeaderComponent = () => {
           socket.emit("admin connected with server", "Admin" + Math.floor(Math.random() * 1000000000000));
           socket.on("server sends message from client to admin", ({user, message}) => {
               dispatch(setSocket(socket));
-        //   let chatRooms = {
-        //     fddf54gfgfSocketID: [{ "client": "dsfdf" }, { "client": "dsfdf" }, { "admin": "dsfdf" }],
-        //   };
-            dispatch(setChatRooms(user, message));      
+
+              dispatch(setChatRooms(user, message));
              dispatch(setMessageReceived(true));  
              audio.play();
           })
