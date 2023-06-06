@@ -21,11 +21,11 @@ import socketIOClient from "socket.io-client";
 import {removeChatRoom, setChatRooms, setMessageReceived, setSocket} from "../redux/actions/chatActions";
 
 const HeaderComponent = () => {
-  const dispatch = useDispatch();
-  const { userInfo } = useSelector((state) => state.userRegisterLogin);
-  const itemsCount = useSelector((state) => state.cart.itemsCount);
-  const { categories } = useSelector((state) => state.getCategories);
-  const { messageReceived } = useSelector((state) => state.adminChat);
+    const dispatch = useDispatch();
+    const {userInfo} = useSelector((state) => state.userRegisterLogin);
+    const itemsCount = useSelector((state) => state.cart.itemsCount);
+    const {categories} = useSelector((state) => state.getCategories);
+    const {messageReceived} = useSelector((state) => state.adminChat);
 
   const [searchCategoryToggle, setSearchCategoryToggle] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
@@ -59,10 +59,12 @@ const HeaderComponent = () => {
           socket.emit("admin connected with server", "Admin" + Math.floor(Math.random() * 1000000000000));
           socket.on("server sends message from client to admin", ({user, message}) => {
               dispatch(setSocket(socket));
-
+              //   let chatRooms = {
+              //     fddf54gfgfSocketID: [{ "client": "dsfdf" }, { "client": "dsfdf" }, { "admin": "dsfdf" }],
+              //   };
               dispatch(setChatRooms(user, message));
-             dispatch(setMessageReceived(true));  
-             audio.play();
+              dispatch(setMessageReceived(true));
+              audio.play();
           })
           socket.on("disconnected", ({reason, socketId}) => {
             //   console.log(socketId, reason)
