@@ -89,7 +89,6 @@ const ProductDetailsPageComponent = ({
 
     return (
         <>
-            <MetaComponent title={product.name} description={product.description}/>
             <Container>
                 <AddedToCartMessageComponent
                     showCartMessage={showCartMessage}
