@@ -3,7 +3,7 @@ import CategoryCardComponent from "../../components/CategoryCardComponent";
 import {Container, Row} from "react-bootstrap";
 
 import {useEffect, useState} from "react";
-import MetaComponent from "../../components/MetaComponent";
+
 
 const HomePageComponent = ({categories, getBestsellers}) => {
 
