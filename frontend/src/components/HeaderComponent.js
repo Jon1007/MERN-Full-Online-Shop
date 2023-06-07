@@ -27,14 +27,14 @@ const HeaderComponent = () => {
     const {categories} = useSelector((state) => state.getCategories);
     const {messageReceived} = useSelector((state) => state.adminChat);
 
-  const [searchCategoryToggle, setSearchCategoryToggle] = useState("All");
-  const [searchQuery, setSearchQuery] = useState("");
+    const [searchCategoryToggle, setSearchCategoryToggle] = useState("All");
+    const [searchQuery, setSearchQuery] = useState("");
 
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  useEffect(() => {
-    dispatch(getCategories());
-  }, [dispatch]);
+    useEffect(() => {
+        dispatch(getCategories());
+    }, [dispatch]);
 
   const submitHandler = (e) => {
      if (e.keyCode && e.keyCode !== 13) return;
