@@ -1,4 +1,8 @@
+.vscode/settings.json
+node_modules
 .gitignore
 .idea
-package-lock.json
-.node_modules
+.LICENSE.text
+.README.text
+.package.json
+.Procfile

@@ -36,15 +36,15 @@ const HeaderComponent = () => {
         dispatch(getCategories());
     }, [dispatch]);
 
-  const submitHandler = (e) => {
-     if (e.keyCode && e.keyCode !== 13) return;
-     e.preventDefault();
-     if (searchQuery.trim()) {
-         if (searchCategoryToggle === "All") {
-             navigate(`/product-list/search/${searchQuery}`);
-         } else {
-             navigate(`/product-list/category/${searchCategoryToggle.replaceAll("/", ",")}/search/${searchQuery}`);
-         }
+    const submitHandler = (e) => {
+        if (e.keyCode && e.keyCode !== 13) return;
+        e.preventDefault();
+        if (searchQuery.trim()) {
+            if (searchCategoryToggle === "All") {
+                navigate(`/product-list/search/${searchQuery}`);
+            } else {
+                navigate(`/product-list/category/${searchCategoryToggle.replaceAll("/", ",")}/search/${searchQuery}`);
+            }
      } else if (searchCategoryToggle !== "All") {
          navigate(`/product-list/category/${searchCategoryToggle.replaceAll("/", ",")}`);
      } else {

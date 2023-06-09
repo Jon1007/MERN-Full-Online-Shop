@@ -4,7 +4,7 @@ import AddedToCartMessageComponent from "../../components/AddedToCartMessageComp
 
 import ImageZoom from "js-image-zoom";
 import {useEffect, useRef, useState} from "react";
-
+import MetaComponent from "../../components/MetaComponent";
 
 import {useParams} from "react-router-dom";
 
@@ -89,6 +89,7 @@ const ProductDetailsPageComponent = ({
 
     return (
         <>
+            <MetaComponent title={product.name} description={product.description}/>
             <Container>
                 <AddedToCartMessageComponent
                     showCartMessage={showCartMessage}
