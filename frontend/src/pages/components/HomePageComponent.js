@@ -25,7 +25,6 @@ const HomePageComponent = ({categories, getBestsellers}) => {
 
     return (
         <>
-            <MetaComponent/>
             <ProductCarouselComponent bestSellers={bestSellers}/>
             <Container>
                 <Row xs={1} md={2} className="g-4 mt-5">
